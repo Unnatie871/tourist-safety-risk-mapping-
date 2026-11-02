@@ -1,0 +1,447 @@
+/* =========================================
+   TOURIST SAFETY SYSTEM
+   Professional Dashboard Design
+   ========================================= */
+
+/* 1. Global settings */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(ellipse at top left, #e0f2fe 0%, transparent 40%),
+        linear-gradient(135deg, #f4f8fc, #eaf1f8);
+    color: #1e293b;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    line-height: 1.7;
+}
+
+/* 2. Main dashboard container */
+
+.container {
+    width: 92% !important;
+    max-width: 1280px !important;
+    margin: 35px auto !important;
+    padding: 40px !important;
+    background: rgba(255, 255, 255, 0.97);
+    text-align: center;
+    border: 1px solid #e2eaf2;
+    border-radius: 22px;
+    box-shadow: 0 15px 50px rgba(23, 59, 87, 0.09);
+}
+
+/* 3. Main heading */
+
+h1 {
+    color: #102b46;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -1.3px;
+    line-height: 1.2;
+    margin: 10px 0 14px;
+}
+
+h2 {
+    color: #173b57;
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    font-weight: 750;
+    margin-top: 32px;
+    margin-bottom: 14px;
+}
+
+h3 {
+    color: #173b57;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+p {
+    color: #526174;
+    line-height: 1.8;
+}
+
+/* 4. Introductory text */
+
+.container > p:first-of-type {
+    color: #087f8c;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.container > p {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 5. Project information card */
+
+.project-info {
+    margin: 30px 0 !important;
+    padding: 28px !important;
+    background: linear-gradient(135deg, #f0f9ff, #f8fbff) !important;
+    border: 1px solid #d9eaf5;
+    border-left: 5px solid #0d9488 !important;
+    border-radius: 16px !important;
+    text-align: left;
+    line-height: 1.8;
+    box-shadow: 0 5px 18px rgba(23, 59, 87, 0.04);
+}
+
+.project-info h3 {
+    margin-top: 0;
+    font-size: 1.35rem;
+}
+
+/* 6. Dashboard navigation buttons */
+
+.dashboard-buttons {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px !important;
+    margin: 30px 0 !important;
+}
+
+.dashboard-buttons a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-height: 65px;
+    padding: 18px !important;
+    background: linear-gradient(135deg, #173b68, #145b76) !important;
+    color: #ffffff !important;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 13px !important;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 7px 18px rgba(23, 59, 104, 0.12);
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+}
+
+.dashboard-buttons a:hover {
+    background: linear-gradient(135deg, #0f766e, #0e7490) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(15, 118, 110, 0.2);
+}
+
+/* 7. All buttons */
+
+button {
+    background: linear-gradient(135deg, #0f766e, #0d9488);
+    color: #ffffff;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    box-shadow: 0 5px 14px rgba(13, 148, 136, 0.15);
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #115e59, #0f766e);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(13, 148, 136, 0.22);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 3px solid #38bdf8;
+    outline-offset: 3px;
+}
+
+/* 8. Route buttons */
+
+.route-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #0f766e, #0d9488) !important;
+    color: #ffffff !important;
+    padding: 14px 24px !important;
+    text-decoration: none;
+    border: none;
+    border-radius: 11px !important;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 12px 5px;
+    box-shadow: 0 5px 16px rgba(13, 148, 136, 0.16);
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+}
+
+.route-button:hover {
+    background: linear-gradient(135deg, #115e59, #0f766e) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 9px 22px rgba(13, 148, 136, 0.24);
+}
+
+/* 9. Results and analysis panels */
+
+#result,
+#safety-result {
+    margin: 24px 0;
+    padding: 24px;
+    background: #f8fafc;
+    border: 1px solid #dbe5ef;
+    border-radius: 15px;
+    text-align: left;
+    overflow-wrap: anywhere;
+    box-shadow: 0 5px 18px rgba(23, 59, 87, 0.04);
+}
+
+#result:empty,
+#safety-result:empty {
+    display: none;
+}
+
+#result h3,
+#safety-result h3 {
+    margin-top: 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #dbe5ef;
+}
+
+#result p,
+#safety-result p {
+    margin: 12px 0;
+}
+
+/* 10. Safety map */
+
+iframe {
+    display: block;
+    width: 100%;
+    height: 540px;
+    margin: 22px auto;
+    border: 1px solid #d7e2ed !important;
+    border-radius: 16px !important;
+    background: #eaf1f8;
+    box-shadow: 0 8px 28px rgba(23, 59, 87, 0.10);
+}
+
+/* 11. Emergency SOS panel */
+
+.sos-section {
+    width: 92%;
+    max-width: 1280px;
+    margin: 30px auto !important;
+    padding: 32px !important;
+    background: linear-gradient(145deg, #ffffff, #fff7f7);
+    border: 1px solid #fecaca !important;
+    border-top: 5px solid #dc2626 !important;
+    border-radius: 18px !important;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(185, 28, 28, 0.07);
+}
+
+.sos-section h2 {
+    color: #b91c1c;
+    margin-top: 0;
+}
+
+.sos-section p {
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sos-section input {
+    width: min(350px, 100%) !important;
+    padding: 13px 15px !important;
+    margin-top: 10px;
+    background: #ffffff;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 9px !important;
+    font-family: inherit;
+    font-size: 15px;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.sos-section input:focus {
+    border-color: #0d9488 !important;
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12);
+    outline: none;
+}
+
+.sos-button {
+    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+    color: white;
+    padding: 15px 28px !important;
+    border: none;
+    border-radius: 10px !important;
+    font-size: 16px;
+    font-weight: 800;
+    box-shadow: 0 7px 20px rgba(220, 38, 38, 0.18);
+}
+
+.sos-button:hover {
+    background: linear-gradient(135deg, #b91c1c, #991b1b) !important;
+    box-shadow: 0 10px 25px rgba(220, 38, 38, 0.25);
+}
+
+/* Emergency result panel */
+
+#sos-result {
+    margin-top: 22px;
+    padding: 10px;
+    overflow-wrap: anywhere;
+}
+
+#sos-result textarea {
+    display: block;
+    max-width: 100%;
+    margin: 12px auto;
+    padding: 12px !important;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    font-family: inherit;
+    line-height: 1.6;
+}
+
+/* 12. Horizontal separators */
+
+hr {
+    height: 1px;
+    margin: 40px 0;
+    background: #dbe5ef;
+    border: none;
+}
+
+/* 13. Mobile and smaller screens */
+
+@media (max-width: 768px) {
+    .container {
+        width: 94% !important;
+        margin: 15px auto !important;
+        padding: 22px !important;
+        border-radius: 16px;
+    }
+
+    h1 {
+        letter-spacing: -0.7px;
+    }
+
+    .dashboard-buttons {
+        grid-template-columns: 1fr;
+        gap: 12px !important;
+    }
+
+    .dashboard-buttons a {
+        min-height: 56px;
+    }
+
+    .project-info {
+        padding: 20px !important;
+    }
+
+    iframe {
+        height: 420px;
+    }
+
+    .sos-section {
+        width: 94%;
+        padding: 22px !important;
+    }
+
+    .route-button {
+        max-width: 100%;
+        white-space: normal;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+} 
+/* ===== PREMIUM UI ENHANCEMENTS ===== */
+
+/* Smooth navigation scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Consistent button interactions */
+button,
+.route-button,
+.hero-button,
+.feature-link {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+/* Premium button hover effect */
+button:hover,
+.route-button:hover {
+    transform: translateY(-2px);
+}
+
+/* Clear keyboard focus for accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 3px solid #5eead4;
+    outline-offset: 3px;
+}
+
+/* Make feature cards feel interactive */
+.feature-card {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+/* Cleaner text selection */
+::selection {
+    background: #99f6e4;
+    color: #10243e;
+}
+
+/* Prevent animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+

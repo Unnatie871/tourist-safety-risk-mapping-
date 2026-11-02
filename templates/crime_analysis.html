@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Crime Statistics | Tourist Safety</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6fb;
+            margin: 0;
+            padding: 25px;
+            color: #243047;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #173b68;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #5d6b7c;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            margin-bottom: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000010;
+        }
+
+        .highlight {
+            text-align: center;
+            border-top: 5px solid #2878c8;
+        }
+
+        .number {
+            font-size: 42px;
+            font-weight: bold;
+            color: #2878c8;
+            margin: 10px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: center;
+            border-bottom: 1px solid #e4e9f0;
+        }
+
+        th {
+            background: #173b68;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f3f7fc;
+        }
+
+        .note {
+            background: #fff6df;
+            border-left: 5px solid #e5a323;
+            padding: 16px;
+            line-height: 1.6;
+        }
+
+        .back {
+            display: inline-block;
+            margin: 10px 0 25px;
+            padding: 11px 18px;
+            background: #173b68;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .back:hover {
+            background: #24558d;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            th, td {
+                padding: 9px 5px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <a href="/" class="back">← Back to Home</a>
+
+    <h1>Crime Statistics Dashboard</h1>
+
+    <p class="subtitle">
+        Tourist Safety Risk Mapping and Fast-Help Routing Agent
+    </p>
+
+    <div class="card highlight">
+        <h2>Jalandhar: Reported Crimes Against Women</h2>
+        <div class="number">480</div>
+        <p>Value reported in the dataset's 2024 field</p>
+    </div>
+
+    <div class="card">
+        <h2>Crime Statistics: 2022–2024</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Crime Category</th>
+                    <th>2022</th>
+                    <th>2023</th>
+                    <th>2024</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for row in crime_data %}
+                <tr>
+                    <td>{{ row["Crime Category"] }}</td>
+                    <td>{{ row["2022"] }}</td>
+                    <td>{{ row["2023"] }}</td>
+                    <td>{{ row["2024"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+    <h2>Crime Statistics Comparison</h2>
+    <p>Comparison of reported cases across 2022, 2023, and 2024.</p>
+    <canvas id="crimeChart"></canvas>
+</div>  
+
+    <div class="card">
+        <h2>About This Data</h2>
+
+        <p>
+            This dashboard displays reported district-level crime statistics
+            for Jalandhar from a downloaded NCRB-related public dataset.
+        </p>
+
+        <div class="note">
+            <strong>Important limitation:</strong>
+            These figures represent reported cases at district level.
+            They do not identify crime locations at street level or predict
+            whether a particular place is safe or unsafe. The dataset's
+            year definitions and category consistency should be verified
+            before drawing comparisons.
+        </div>
+    </div>
+
+</div> 
+<script>
+const crimeRows = {{ crime_data | tojson }};
+
+const categories = crimeRows.map(row => row["Crime Category"]);
+
+const chartData = {
+    labels: categories,
+    datasets: [
+        {
+            label: "2022",
+            data: crimeRows.map(row => Number(row["2022"]))
+        },
+        {
+            label: "2023",
+            data: crimeRows.map(row => Number(row["2023"]))
+        },
+        {
+            label: "2024",
+            data: crimeRows.map(row => Number(row["2024"]))
+        }
+    ]
+};
+
+new Chart(document.getElementById("crimeChart"), {
+    type: "bar",
+    data: chartData,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "top"
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: "Reported cases"
+                }
+            }
+        }
+    }
+});
+</script> 
+</body>
+</html>

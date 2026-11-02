@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tourist Safety | Smart Safety Intelligence</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        /* ===== PROFESSIONAL HOMEPAGE ===== */
+
+        :root {
+            --navy: #10243e;
+            --navy-light: #193b5c;
+            --teal: #0d9488;
+            --teal-light: #ccfbf1;
+            --text: #26374a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --surface: #ffffff;
+            --background: #f4f7fb;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+        }
+
+        .container {
+            width: 94% !important;
+            max-width: 1440px !important;
+            padding: 0 !important;
+            margin: 24px auto !important;
+            overflow: hidden;
+            text-align: left;
+            background: transparent;
+            border: none;
+            border-radius: 20px;
+            box-shadow: none;
+        }
+
+        /* Navigation */
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 32px;
+            background: var(--navy);
+            border-radius: 18px 18px 0 0;
+            color: white;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            font-size: 19px;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: -0.4px;
+        }
+
+        .brand-icon {
+            display: grid;
+            place-items: center;
+            width: 43px;
+            height: 43px;
+            background: rgba(45, 212, 191, 0.14);
+            border: 1px solid rgba(94, 234, 212, 0.35);
+            border-radius: 12px;
+            font-size: 23px;
+        }
+
+        .brand small {
+            display: block;
+            color: #a9c3d8;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            margin-top: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #d8e5f1;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #5eead4;
+        }
+
+        .nav-links .nav-emergency {
+            padding: 10px 15px;
+            color: white;
+            background: #c83b45;
+            border-radius: 9px;
+        }
+
+        /* Hero section */
+
+        .hero {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            align-items: center;
+            gap: 40px;
+            padding: 65px 7%;
+            color: white;
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(13, 148, 136, 0.30),
+                    transparent 35%
+                ),
+                linear-gradient(125deg, #10243e, #183d5c 70%, #115e68);
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            right: -140px;
+            bottom: -180px;
+            border: 1px solid rgba(255,255,255,0.13);
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 35px rgba(255,255,255,0.025),
+                0 0 0 70px rgba(255,255,255,0.025);
+            pointer-events: none;
+        }
+
+        .hero-content,
+        .hero-visual {
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 13px;
+            margin-bottom: 20px;
+            color: #99f6e4;
+            background: rgba(45, 212, 191, 0.10);
+            border: 1px solid rgba(94, 234, 212, 0.23);
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background: #5eead4;
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            max-width: 700px;
+            margin: 0 0 20px;
+            color: white;
+            font-size: clamp(36px, 4.5vw, 64px);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 span {
+            color: #5eead4;
+        }
+
+        .hero-description {
+            max-width: 600px;
+            margin: 0 0 28px;
+            color: #d0deeb;
+            font-size: 16px;
+            line-height: 1.9;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .hero-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 48px;
+            padding: 13px 20px;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .hero-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero-button.primary {
+            color: #10243e;
+            background: #5eead4;
+        }
+
+        .hero-button.primary:hover {
+            background: #99f6e4;
+        }
+
+        .hero-button.secondary {
+            color: white;
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.25);
+        }
+
+        .hero-button.secondary:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        /* Hero capability panel */
+
+        .hero-visual {
+            padding: 24px;
+            background: rgba(255,255,255,0.075);
+            border: 1px solid rgba(255,255,255,0.16);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+            backdrop-filter: blur(8px);
+        }
+
+        .visual-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .visual-heading h3 {
+            margin: 0;
+            color: white;
+            font-size: 15px;
+        }
+
+        .visual-tag {
+            padding: 5px 9px;
+            color: #99f6e4;
+            background: rgba(45,212,191,0.12);
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .capability {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 0;
+            border-top: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .capability-icon {
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.09);
+            border-radius: 12px;
+            font-size: 22px;
+        }
+
+        .capability h4 {
+            margin: 0 0 4px;
+            color: white;
+            font-size: 13px;
+        }
+
+        .capability p {
+            margin: 0;
+            color: #c1d3e3;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        /* Main content */
+
+        .main-content {
+            padding: 42px;
+            background: #f8fafc;
+            border-radius: 0 0 18px 18px;
+        }
+
+        .section-heading {
+            margin-bottom: 25px;
+        }
+
+        .section-kicker {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--teal);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            margin: 0 0 8px;
+            color: var(--navy);
+            font-size: clamp(24px, 3vw, 32px);
+            letter-spacing: -0.8px;
+        }
+
+        .section-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* Feature cards */
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin: 28px 0 45px;
+        }
+
+/* Premium feature cards */
+
+.feature-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    padding: 28px;
+    background: linear-gradient(145deg, #ffffff, #f8fbff);
+    border: 1px solid #e1eaf2;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(16, 36, 62, 0.045);
+    overflow: hidden;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.feature-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #0d9488, #5eead4);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    border-color: #a7dcd6;
+    box-shadow: 0 18px 35px rgba(16, 36, 62, 0.10);
+}
+
+.feature-card:hover::before {
+    transform: scaleX(1);
+}
+
+.feature-icon {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    margin-bottom: 20px;
+    background: linear-gradient(145deg, #e6fffb, #d5f5ef);
+    border: 1px solid #c5eee7;
+    border-radius: 15px;
+    font-size: 25px;
+    transition: transform 0.25s ease;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.07);
+}
+
+.feature-card h3 {
+    margin: 0 0 10px;
+    color: #10243e;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+}
+
+.feature-card p {
+    flex-grow: 1;
+    margin: 0 0 22px;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.85;
+}
+
+.feature-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #0f766e;
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.feature-link:hover {
+    color: #134e4a;
+}
+
+        /* Information panel */
+
+        .about-panel {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 30px;
+            padding: 28px;
+            margin-bottom: 45px;
+            background: #edf5fa;
+            border: 1px solid #dce9f2;
+            border-left: 4px solid var(--teal);
+            border-radius: 15px;
+        }
+
+        .about-panel h3 {
+            margin: 0;
+            color: var(--navy);
+            font-size: 20px;
+        }
+
+        .about-panel p {
+            margin: 0 0 12px;
+            color: #526174;
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .about-panel p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Map section */
+
+        .map-panel {
+            padding: 25px;
+            margin: 0 0 40px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            box-shadow: 0 6px 24px rgba(16,36,62,0.04);
+            scroll-margin-top: 25px;
+        }
+
+        .map-panel iframe {
+            display: block;
+            width: 100%;
+            height: 530px;
+            margin: 20px 0;
+            border: 1px solid var(--border) !important;
+            border-radius: 12px !important;
+            background: #edf2f7;
+        }
+
+        .map-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* Results */
+
+        .result-panel {
+            padding: 22px;
+            margin: 20px 0;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow-wrap: anywhere;
+            scroll-margin-top: 25px;
+        }
+
+        .result-panel:empty {
+            display: none;
+        }
+
+        .result-panel h3 {
+            color: var(--navy);
+            margin-top: 0;
+        }
+
+        .result-panel p {
+            color: #526174;
+            line-height: 1.8;
+        }
+
+        /* Emergency panel */
+
+        .sos-section {
+            width: 100% !important;
+            max-width: none !important;
+            padding: 30px !important;
+            margin: 40px 0 0 !important;
+            background: #fff7f7 !important;
+            border: 1px solid #fecaca !important;
+            border-top: 4px solid #dc2626 !important;
+            border-radius: 16px !important;
+            box-shadow: none !important;
+            text-align: left !important;
+            scroll-margin-top: 25px;
+        }
+
+        .sos-heading {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .sos-icon {
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            width: 52px;
+            height: 52px;
+            background: #fee2e2;
+            border-radius: 13px;
+            font-size: 25px;
+        }
+
+        .sos-heading h2 {
+            margin: 0 0 3px;
+            color: #991b1b;
+        }
+
+        .sos-heading p {
+            margin: 0;
+            color: #7f4b4b;
+            font-size: 13px;
+        }
+
+        .sos-section label {
+            display: block;
+            margin: 18px 0 7px;
+            color: #4b5563;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .sos-section input {
+            display: block;
+            width: min(380px, 100%) !important;
+            padding: 13px 14px !important;
+            background: white;
+            border: 1px solid #e5baba !important;
+            border-radius: 9px !important;
+            font: inherit;
+        }
+
+        .sos-button {
+            margin-top: 15px;
+            background: #c62836 !important;
+            color: white;
+            border-radius: 9px !important;
+        }
+
+        .sos-button:hover {
+            background: #991b1b !important;
+        }
+
+        #sos-result {
+            margin-top: 20px;
+            overflow-wrap: anywhere;
+        }
+
+        #sos-result textarea {
+            display: block;
+            width: 100%;
+            max-width: 500px;
+            margin: 10px 0;
+            padding: 12px;
+            border: 1px solid #e5baba;
+            border-radius: 8px;
+            font: inherit;
+            box-sizing: border-box;
+        }
+
+        /* Footer */
+
+        .site-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 25px 10px;
+            color: #718096;
+            font-size: 11px;
+        }
+
+        .site-footer strong {
+            color: var(--navy);
+        }
+
+        /* Responsive layout */
+
+        @media (max-width: 900px) {
+            .topbar {
+                align-items: flex-start;
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 45px 7%;
+            }
+
+            .hero-visual {
+                max-width: 600px;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .about-panel {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .main-content {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .container {
+                width: 96% !important;
+                margin: 10px auto !important;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 11px;
+            }
+
+            .hero { 
+                padding: 35px 22px;
+            }
+
+            .hero h1 {
+                font-size: 39px;
+                letter-spacing: -1.4px;
+            }
+
+            .hero-description {
+                font-size: 14px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .hero-button {
+                width: 100%;
+            }
+
+            .hero-visual {
+                padding: 18px;
+            }
+
+            .main-content {
+                padding: 20px 14px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                padding: 22px;
+            }
+
+            .map-panel {
+                padding: 14px;
+            }
+
+            .map-panel iframe {
+                height: 400px;
+            }
+
+            .map-actions {
+                flex-direction: column;
+            }
+
+            .map-actions .route-button {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            .sos-section {
+                padding: 22px 17px !important;
+            }
+
+            .site-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- NAVIGATION -->
+    <header class="topbar">
+
+        <a href="/" class="brand">
+            <span class="brand-icon">🛡️</span>
+            <span>
+                TOURIST SAFETY
+                <small>SMART SAFETY INTELLIGENCE</small>
+            </span>
+        </a>
+
+        <nav class="nav-links" aria-label="Main navigation">
+            <a href="/">Home</a>
+            <a href="/crime-analysis">Crime Analytics</a>
+            <a href="/ai-analysis">AI Analysis</a>
+            <a href="#safety-map">Safety Map</a>
+            <a href="#emergency" class="nav-emergency">
+                Emergency SOS
+            </a>
+        </nav>
+
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="eyebrow">
+                <span class="status-dot"></span>
+                AI-POWERED SAFETY PLATFORM
+            </div>
+
+            <h1>
+                Explore Smarter.<br>
+                <span>Travel Safer.</span>
+            </h1>
+
+            <p class="hero-description">
+                Explore crime statistics, understand district-level
+                crime patterns, discover mapped help facilities, and
+                find routes to nearby assistance through one
+                integrated safety platform.
+            </p>
+
+            <div class="hero-actions">
+
+                <a href="#safety-map" class="hero-button primary">
+                    Explore Safety Map →
+                </a>
+
+                <a href="/crime-analysis"
+                   class="hero-button secondary">
+                    View Crime Analytics ↗
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="hero-visual">
+
+            <div class="visual-heading">
+                <h3>Platform Capabilities</h3>
+                <span class="visual-tag">LIVE FEATURES</span>
+            </div>
+
+            <div class="capability">
+                <div class="capability-icon">🤖</div>
+                <div>
+                    <h4>AI Crime Classification</h4>
+                    <p>
+                        Machine-learning analysis of historical
+                        district-level crime statistics.
+                    </p>
+                </div>
+            </div>
+
+            <div class="capability">
+                <div class="capability-icon">🗺️</div>
+                <div>
+                    <h4>Interactive Safety Map</h4>
+                    <p>
+                        Explore mapped emergency facilities
+                        across the Jalandhar area.
+                    </p>
+                </div>
+            </div>
+
+            <div class="capability">
+                <div class="capability-icon">📍</div>
+                <div>
+                    <h4>Fast-Help Routing</h4>
+                    <p>
+                        Find a route from your location to
+                        an available mapped destination.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- FEATURES -->
+        <section id="features">
+
+            <div class="section-heading">
+                <span class="section-kicker">Explore the platform</span>
+                <h2>Your Safety Toolkit</h2>
+                <p>
+                    Essential safety information and assistance
+                    features in one place.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+
+                <article class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Crime Analytics</h3>
+                    <p>
+                        Explore historical reported-crime statistics
+                        and examine district-level crime information.
+                    </p>
+                    <a href="/crime-analysis" class="feature-link">
+                        Explore statistics <span>→</span>
+                    </a>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Crime Classification</h3>
+                    <p>
+                        View the model's classification of relative
+                        reported-crime burden using historical data.
+                    </p>
+                    <a href="/ai-analysis" class="feature-link">
+                        Explore AI analysis <span>→</span>
+                    </a>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">🗺️</div>
+                    <h3>Interactive Safety Map</h3>
+                    <p>
+                        Explore mapped hospitals, police stations,
+                        and other available facilities.
+                    </p>
+                    <a href="#safety-map" class="feature-link">
+                        Open the map <span>→</span>
+                    </a>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3>Safe Route Planning</h3>
+                    <p>
+                        Allow location access to calculate a route
+                        to a mapped help facility.
+                    </p>
+                    <a href="#safety-map" class="feature-link">
+                        Plan a route <span>→</span>
+                    </a>
+                </article>
+
+                
+
+                <article class="feature-card">
+                    <div class="feature-icon">🚨</div>
+                    <h3>Emergency SOS</h3>
+                    <p>
+                        Prepare an emergency message for a trusted
+                        contact and open WhatsApp to review it.
+                    </p>
+                    <a href="#emergency" class="feature-link">
+                        Open SOS assistance <span>→</span>
+                    </a>
+                </article>
+
+            </div>
+
+        </section>
+
+       
+
+        <!-- MAP -->
+        <section class="map-panel" id="safety-map">
+
+            <div class="section-heading">
+                <span class="section-kicker">Explore Jalandhar</span>
+                <h2>Safety Map & Help Facilities</h2>
+                <p>
+                    Explore mapped locations and use the available
+                    tools to find nearby assistance.
+                </p>
+            </div>
+
+            <iframe
+                src="/map"
+                title="Jalandhar Safety Map"
+                loading="lazy"
+                style="border: none;">
+            </iframe>
+
+            <div class="map-actions">
+
+                <button
+                    type="button"
+                    class="route-button"
+                    onclick="findSafeRoute()">
+                    📍 Find Route From My Location
+                </button>
+
+                
+            </div>
+
+            
+
+        </section>
+
+        <!-- AI ANALYSIS RESULT -->
+        <section id="analysis-results">
+
+            <div class="section-heading">
+                <span class="section-kicker">Intelligent insights</span>
+                <h2>Safety Analysis</h2>
+                <p>
+                    Review the result returned by the AI
+                    classification service.
+                </p>
+            </div>
+
+            <button type="button" onclick="checkSafety()">
+                Run AI Crime Analysis
+            </button>
+
+            <div
+                id="result"
+                class="result-panel"
+                role="status"
+                aria-live="polite">
+            </div>
+
+        </section>
+
+        <!-- EMERGENCY SOS -->
+        <section class="sos-section" id="emergency">
+
+            <div class="sos-heading">
+
+                <div class="sos-icon">🚨</div>
+
+                <div>
+                    <h2>Emergency SOS</h2>
+                    <p>
+                        Prepare an emergency message for
+                        your trusted contact.
+                    </p>
+                </div>
+
+            </div>
+
+            <label for="contact-number">
+                Trusted Contact's Indian Mobile Number
+            </label>
+
+            <input
+                type="tel"
+                id="contact-number"
+                placeholder="Enter 10-digit mobile number"
+                autocomplete="tel"
+                inputmode="numeric"
+                maxlength="10">
+
+            <button
+                type="button"
+                id="sos-button"
+                class="sos-button">
+                🚨 Prepare Emergency Message
+            </button>
+
+            <div
+                id="sos-result"
+                role="status"
+                aria-live="polite">
+            </div>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+
+            <div>
+                <strong>🛡️ Tourist Safety System</strong>
+                <br>
+                Tourist Safety Risk Mapping and Fast-Help Routing Agent
+            </div>
+
+            <div>
+                Built with Flask · Machine Learning · OpenStreetMap
+            </div>
+
+        </footer>
+
+    </main>
+
+</div>
+
+<script>
+/* ===== AI CRIME CLASSIFICATION ===== */
+
+async function checkSafety() {
+
+    const resultBox = document.getElementById("result");
+
+    resultBox.textContent =
+        "Analysing historical district-level crime data...";
+
+    resultBox.style.display = "block";
+
+    try {
+
+        const response = await fetch("/api/ai-analysis");
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Analysis failed");
+        }
+
+        resultBox.innerHTML = `
+            <h3>AI Crime Classification</h3>
+
+            <p>
+                <strong>District:</strong>
+                ${data.district}
+            </p>
+
+            <p>
+                <strong>Relative reported-crime-burden category:</strong>
+                ${data.risk_level}
+            </p>
+
+            <p>
+                <strong>Explanation:</strong>
+                ${data.message}
+            </p>
+
+            <p>
+                <strong>Rule-Based Safety Advice:</strong>
+                ${data.safety_advice}
+            </p>
+        `;
+
+        resultBox.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
+
+    } catch (error) {
+
+        resultBox.textContent =
+            "Unable to load AI analysis. Please try again.";
+
+        console.error("AI analysis error:", error);
+    }
+}
+
+
+ 
+
+
+/* ===== WHATSAPP SOS ===== */
+
+document
+    .getElementById("sos-button")
+    .addEventListener("click", async function () { 
+
+        const phone =
+            document.getElementById("contact-number").value.trim();
+
+        const result =
+            document.getElementById("sos-result");
+
+        if (!/^[6-9]\d{9}$/.test(phone)) {
+
+            result.textContent =
+                "Please enter a valid 10-digit Indian mobile number.";
+
+            return;
+        } 
+        if (!navigator.geolocation) {
+    result.textContent =
+        "Your browser does not support location access.";
+    return;
+}
+
+result.textContent = "Getting your current location...";
+
+try {
+    const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+            resolve,
+            reject,
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            }
+        );
+    });
+
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+    // Your emergency message will be created here. 
+
+        const message =
+    "EMERGENCY ALERT! I may need help. " +
+    "Please contact me immediately. " +
+    "My current location: " +
+    "https://www.google.com/maps?q=" +
+    latitude + "," + longitude; 
+
+        result.innerHTML = "";
+
+        const heading = document.createElement("h3");
+        heading.textContent = "Emergency Message Prepared";
+
+        const contactText = document.createElement("p");
+        contactText.textContent =
+            "Trusted contact: +91 " + phone;
+
+        const messageLabel = document.createElement("p");
+        messageLabel.textContent =
+            "Review your emergency message:";
+
+        const messageBox = document.createElement("textarea");
+        messageBox.value = message;
+        messageBox.readOnly = true;
+        messageBox.rows = 4;
+
+        const copyButton = document.createElement("button");
+        copyButton.type = "button";
+        copyButton.textContent = "Copy Emergency Message";
+
+        copyButton.style.margin = "10px 10px 10px 0";
+
+        copyButton.addEventListener("click", async function () {
+
+            try {
+
+                await navigator.clipboard.writeText(message);
+
+                copyButton.textContent = "Message Copied!";
+
+            } catch (error) {
+
+                messageBox.focus();
+                messageBox.select();
+
+                alert(
+                    "Your message is selected. Press Ctrl+C to copy it."
+                );
+            }
+        });
+
+        const whatsappLink = document.createElement("a");
+
+        whatsappLink.href =
+            "https://web.whatsapp.com/send?phone=91" +
+            phone +
+            "&text=" +
+            encodeURIComponent(message);
+
+        whatsappLink.target = "_blank";
+        whatsappLink.rel = "noopener noreferrer";
+        whatsappLink.textContent = "Open WhatsApp";
+
+        whatsappLink.className = "route-button";
+        whatsappLink.style.background = "#15803d";
+        whatsappLink.style.margin = "10px 0";
+
+        const note = document.createElement("p");
+
+        note.textContent =
+            "Review the message in WhatsApp and press Send yourself. " +
+            "This feature does not automatically send messages " +
+            "or contact emergency services.";
+
+                result.append(
+            heading,
+            contactText,
+            messageLabel,
+            messageBox,
+            document.createElement("br"),
+            copyButton,
+            whatsappLink,
+            note
+        );
+
+    } catch (error) {
+        result.textContent =
+            "Unable to get your current location. Please allow location access and try again.";
+    }
+}); 
+
+/* ===== FIND A SAFE ROUTE ===== */
+
+function findSafeRoute() {
+
+    if (!navigator.geolocation) {
+
+        alert(
+            "Your browser does not support location access."
+        );
+
+        return;
+    }
+
+    alert(
+        "Please allow location access to find a nearby help facility."
+    );
+
+    navigator.geolocation.getCurrentPosition(
+
+        function (position) {
+
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            window.location.href =
+                "/safe-route?lat=" +
+                encodeURIComponent(lat) +
+                "&lon=" +
+                encodeURIComponent(lon);
+        },
+
+        function (error) {
+
+            if (error.code === error.PERMISSION_DENIED) {
+
+                alert(
+                    "Location permission was denied. " +
+                    "Please allow location access and try again."
+                );
+
+            } else {
+
+                alert(
+                    "Unable to obtain your location. Please try again."
+                );
+            }
+        },
+
+        {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 0
+        }
+    );
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Crime Classification</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6fb;
+            color: #243047;
+            margin: 0;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 40px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000010;
+            text-align: center;
+        }
+
+        h1 {
+            color: #173b68;
+        }
+
+        .prediction {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 25px 0;
+        }
+
+        .note {
+            background: #fff6df;
+            padding: 15px;
+            border-radius: 8px;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: #173b68;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+
+            <h1>AI Crime Classification</h1>
+
+            <p>District: <strong>{{ district_name }}</strong></p>
+
+            <p>Model classification:</p>
+
+            <div class="prediction">{{ prediction }}</div>
+
+            <div class="note">
+                <strong>Important limitation:</strong>
+                This result represents a relative classification of
+                reported district-level crime burden using historical
+                crime statistics. It does not predict street-level danger
+                or guarantee anyone's safety.
+            </div>
+
+            <a href="/">Back to Home</a>
+
+        </div>
+    </div>
+</body>
+</html>
