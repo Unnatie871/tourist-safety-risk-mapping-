@@ -3,7 +3,7 @@ import math
 
 from flask import Flask, render_template, jsonify, request 
 app = Flask(__name__)
-from routing import generate_route, prepare_routing  
+from routing_sparse import generate_route, prepare_routing 
 def get_safety_advice(risk_level):
     if risk_level == "High":
         return (
@@ -189,7 +189,7 @@ def api_ai_analysis():
     model = saved_model["model"]
     features = saved_model["features"]
 
-    input_data = district[features].apply(
+    input_data = district[features].apply( 
         pd.to_numeric, errors="coerce"
     )
 

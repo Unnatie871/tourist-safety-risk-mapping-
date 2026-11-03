@@ -35,6 +35,10 @@ static/routes/
 
 # Downloaded OpenStreetMap road network
 data/jalandhar_drive.graphml
+# Lightweight graph used only for local conversion
+data/jalandhar_drive_light.graphml
+
+# Original graph is not required for application runtime 
 
 # Cache directories
 cache/  
