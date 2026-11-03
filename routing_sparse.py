@@ -2,10 +2,10 @@ import numpy as np
 import pandas as pd
 import folium
 import uuid
+import heapq
 
 from pathlib import Path
 from scipy.sparse import load_npz
-from scipy.sparse.csgraph import dijkstra
 from scipy.spatial import cKDTree
 
 
@@ -26,7 +26,9 @@ def prepare_routing():
 
         print("Loading sparse road network...")
 
-        A = load_npz("data/jalandhar_roads_sparse.npz")
+        A = load_npz(
+            "data/jalandhar_roads_sparse.npz"
+        ).tocsr()
 
         NODE_IDS = np.load(
             "data/jalandhar_node_ids.npy"
@@ -53,6 +55,140 @@ def prepare_routing():
         print("Emergency facilities loaded!")
 
 
+# Calculate straight-line distance using Haversine formula
+def haversine_distance(point, goals):
+
+    lon1 = np.radians(point[0])
+    lat1 = np.radians(point[1])
+
+    lon2 = np.radians(goals[:, 0])
+    lat2 = np.radians(goals[:, 1])
+
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+
+    a = (
+        np.sin(dlat / 2) ** 2
+        + np.cos(lat1)
+        * np.cos(lat2)
+        * np.sin(dlon / 2) ** 2
+    )
+
+    a = np.clip(a, 0, 1)
+
+    distance = (
+        2
+        * 6371000
+        * np.arcsin(np.sqrt(a))
+    )
+
+    return np.min(distance)
+
+
+# A* Search Algorithm
+def astar_search(start_index, goal_indices):
+
+    goal_indices = np.unique(goal_indices)
+
+    goal_coordinates = NODE_COORDINATES[goal_indices]
+
+    number_of_nodes = A.shape[0]
+
+    # Store the actual distance from the start
+    g_score = np.full(
+        number_of_nodes,
+        np.inf
+    )
+
+    # Store the previous node for route reconstruction
+    came_from = np.full(
+        number_of_nodes,
+        -1,
+        dtype=int
+    )
+
+    # Priority queue stores (f_score, g_score, node)
+    open_set = []
+
+    g_score[start_index] = 0
+
+    start_heuristic = haversine_distance(
+        NODE_COORDINATES[start_index],
+        goal_coordinates
+    )
+
+    heapq.heappush(
+        open_set,
+        (
+            start_heuristic,
+            0,
+            start_index
+        )
+    )
+
+    print("Running A* Search...")
+
+    while open_set:
+
+        f_current, current_g, current = heapq.heappop(
+            open_set
+        )
+
+        # Ignore outdated queue entries
+        if current_g > g_score[current]:
+            continue
+
+        # Stop when the nearest reachable goal is reached
+        if current in goal_indices:
+
+            print("Emergency facility reached using A*!")
+
+            return current, came_from, current_g
+
+        # Get all road connections of the current node
+        start_position = A.indptr[current]
+        end_position = A.indptr[current + 1]
+
+        neighbors = A.indices[
+            start_position:end_position
+        ]
+
+        weights = A.data[
+            start_position:end_position
+        ]
+
+        # Explore neighbouring road nodes
+        for neighbor, weight in zip(neighbors, weights):
+
+            tentative_g = current_g + weight
+
+            if tentative_g < g_score[neighbor]:
+
+                came_from[neighbor] = current
+
+                g_score[neighbor] = tentative_g
+
+                h_score = haversine_distance(
+                    NODE_COORDINATES[neighbor],
+                    goal_coordinates
+                )
+
+                f_score = tentative_g + h_score
+
+                heapq.heappush(
+                    open_set,
+                    (
+                        f_score,
+                        tentative_g,
+                        neighbor
+                    )
+                )
+
+    raise ValueError(
+        "No reachable emergency facility found."
+    )
+
+
 def generate_route(start_lat, start_lon):
 
     prepare_routing()
@@ -66,37 +202,23 @@ def generate_route(start_lat, start_lon):
 
     print("Finding nearest reachable emergency facility...")
 
-    # Calculate shortest distances from the starting node
-    distances, predecessors = dijkstra(
-        A,
-        directed=True,
-        indices=start_index,
-        return_predecessors=True
+    # Get all emergency facility road nodes
+    goal_indices = [
+        int(facility["node_index"])
+        for facility in FACILITIES
+    ]
+
+    # Run A* Search
+    destination_index, came_from, shortest_distance = astar_search(
+        start_index,
+        goal_indices
     )
 
-    nearest_facility = None
-    shortest_distance = float("inf")
-
-    # Find the nearest reachable emergency facility
-    for facility in FACILITIES:
-
-        facility_index = int(facility["node_index"])
-
-        distance = distances[facility_index]
-
-        if distance < shortest_distance:
-
-            shortest_distance = distance
-            nearest_facility = facility
-
-    if nearest_facility is None or not np.isfinite(shortest_distance):
-
-        raise ValueError(
-            "No reachable emergency facility found."
-        )
-
-    destination_index = int(
-        nearest_facility["node_index"]
+    # Find the facility at the destination node
+    nearest_facility = next(
+        facility
+        for facility in FACILITIES
+        if int(facility["node_index"]) == destination_index
     )
 
     # Reconstruct the shortest route
@@ -104,43 +226,44 @@ def generate_route(start_lat, start_lon):
 
     current = destination_index
 
-    while current != start_index and current != -9999:
+    while current != start_index:
 
         route.append(current)
 
-        current = int(predecessors[current])
+        current = int(came_from[current])
 
-    if current != start_index:
+        if current == -1:
 
-        raise ValueError("Route reconstruction failed.")
+            raise ValueError(
+                "Route reconstruction failed."
+            )
 
     route.append(start_index)
 
     route.reverse()
 
-    # Convert node indices into geographic coordinates
     # Convert road node indices into geographic coordinates
     route_coordinates = [
-    [
-        NODE_COORDINATES[index][1],
-        NODE_COORDINATES[index][0]
+        [
+            NODE_COORDINATES[index][1],
+            NODE_COORDINATES[index][0]
+        ]
+        for index in route
     ]
-    for index in route
-]
 
-# Add the tourist's exact GPS location at the beginning
+    # Add the tourist's exact GPS location
     route_coordinates.insert(
-    0,
-    [start_lat, start_lon]
-)
+        0,
+        [start_lat, start_lon]
+    )
 
-# Add the exact emergency facility location at the end
+    # Add the exact emergency facility location
     route_coordinates.append(
-    [
-        nearest_facility["latitude"],
-        nearest_facility["longitude"]
-    ]
-) 
+        [
+            nearest_facility["latitude"],
+            nearest_facility["longitude"]
+        ]
+    )
 
     # Create the route map
     route_map = folium.Map(
@@ -153,7 +276,10 @@ def generate_route(start_lat, start_lon):
         [start_lat, start_lon],
         popup="Your Current Location",
         tooltip="Starting Point",
-        icon=folium.Icon(color="blue", icon="user")
+        icon=folium.Icon(
+            color="blue",
+            icon="user"
+        )
     ).add_to(route_map)
 
     # Mark emergency facility
@@ -162,9 +288,15 @@ def generate_route(start_lat, start_lon):
             nearest_facility["latitude"],
             nearest_facility["longitude"]
         ],
-        popup=nearest_facility.get("name", "Emergency Facility"),
+        popup=nearest_facility.get(
+            "name",
+            "Emergency Facility"
+        ),
         tooltip="Nearest Emergency Facility",
-        icon=folium.Icon(color="red", icon="plus-sign")
+        icon=folium.Icon(
+            color="red",
+            icon="plus-sign"
+        )
     ).add_to(route_map)
 
     # Draw the route
@@ -173,7 +305,7 @@ def generate_route(start_lat, start_lon):
         color="blue",
         weight=5,
         opacity=0.8,
-        tooltip="Shortest Road Route"
+        tooltip="A* Shortest Road Route"
     ).add_to(route_map)
 
     # Fit map to route
@@ -193,7 +325,8 @@ def generate_route(start_lat, start_lon):
 
     return {
         "facility_name": nearest_facility.get(
-            "name", "Emergency Facility"
+            "name",
+            "Emergency Facility"
         ),
         "facility_type": nearest_facility["type"],
         "distance_metres": shortest_distance,
